@@ -73,18 +73,21 @@ public class Map : MonoBehaviour
             CreateUnitAction create = new CreateUnitAction();
             create.x = 20;
             create.y = 20;
+            create.player = 0;
             create.unitType = UnitType.Armor;
 
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().net.netSyncAction(create);
 
             create.x = 25;
             create.y = 25;
+            create.player = 0;
             create.unitType = UnitType.Engineer;
 
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().net.netSyncAction(create);
 
             create.x = 35;
             create.y = 35;
+            create.player = 1;
             create.unitType = UnitType.Dragooner;
 
             GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().net.netSyncAction(create);

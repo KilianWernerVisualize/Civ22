@@ -23,9 +23,12 @@ public class Unit : MonoBehaviour
     public Transform healthBar;
     private Vector3 healthBarStartPos;
 
+    public SpriteRenderer myHealthBarRenderer;
     public SpriteRenderer myRenderer;
 
     public Field myField;
+
+    public int owner;
 
     public MoveType moveType
     {
@@ -78,7 +81,8 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        myRenderer.enabled = myField.show;
+        myHealthBarRenderer.enabled = myField.show;
     }
 }
 
@@ -102,7 +106,10 @@ public class CreateUnitAction : Action
         myUnit.myField = myField;
         myField.units.Add(myUnit);
 
+        myUnit.owner = player;
+
         myUnit.transform.position = myField.transform.position;
+        //manager().makeVisibility();
     }
 }
 
@@ -179,6 +186,9 @@ public class MoveUnitAction : Action
 
         myUnit.transform.position = myTargetField.transform.position;
         myUnit.GetComponent<AudioSource>().PlayOneShot(ClipController.clips[(int)Audio.movpiece]);
+
+        if (local)
+            manager().makeVisibility();
     }
 }
 

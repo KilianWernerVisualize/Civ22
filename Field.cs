@@ -47,8 +47,12 @@ public class Field : MonoBehaviour, PathNode
     public int road = 0;
     public bool river = false;
     public int bonus = 0;
+
+
+
     public bool hut = false;
     public List<Unit> units;
+    public bool show = false;
 
     void OnMouseEnter()
     {
@@ -123,7 +127,7 @@ public class Field : MonoBehaviour, PathNode
         return this;
     }
 
-    Field neighbor(int idx)
+    public Field neighbor(int idx)
     {
         switch (idx)
         {

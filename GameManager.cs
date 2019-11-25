@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public int turnPlayer;
 
     public GameObject UnitPrefab;
+    public Map myMap;
 
     public GameState gameState;
 
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         net = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<NetManager>();
+        myMap = GameObject.FindGameObjectWithTag("Map").GetComponent<Map>();
     }
 
     public bool searchMoveableUnit()
@@ -34,7 +36,7 @@ public class GameManager : MonoBehaviour
         GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
         for (int i = 0; (i < units.Length); i++)
         {
-            if (units[i].GetComponent<Unit>().movePoints > 0.1)
+            if (units[i].GetComponent<Unit>().movePoints > 0.1 && units[i].GetComponent<Unit>().owner == localPlayer)
             {
                 activeUnit = units[i].GetComponent<Unit>();
                 GameObject.FindGameObjectWithTag("MainCamera").transform.position = new Vector3(activeUnit.transform.position.x, activeUnit.transform.position.y, -10);
@@ -43,6 +45,25 @@ public class GameManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void makeVisibility()
+    {
+        foreach (Field field in myMap.fields)
+        {
+            field.show = false;
+        }
+        foreach (Field field in myMap.fields)
+        {
+            if (field.units.Count > 0 && field.units[0].owner == localPlayer)
+            {
+                field.show = true;
+                for (int i = 0; (i < 8); i++)
+                {
+                    field.neighbor(i).show = true;
+                }
+            }
+        }
     }
 
     public void doMovement()

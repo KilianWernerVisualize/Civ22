@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Priority_Queue;
 
 public interface PathNode
 {
@@ -12,7 +13,6 @@ public interface PathNode
 
 public class PathFinder : MonoBehaviour
 {
-
     public static float manhattanDistance(PathNode start, PathNode finish)
     {
         // Read x and y values from start and finish each
